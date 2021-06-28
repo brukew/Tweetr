@@ -15,6 +15,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) Tweet* tweet;
 
+@property (weak, nonatomic) IBOutlet UIImageView *profPicLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *userLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *bodyLabel;
+@property (weak, nonatomic) IBOutlet UILabel *replyLabel;
+@property (weak, nonatomic) IBOutlet UILabel *rtLabel;
+@property (weak, nonatomic) IBOutlet UILabel *favLabel;
+
 @end
 
 NS_ASSUME_NONNULL_END
