@@ -10,8 +10,12 @@
 #import "APIManager.h"
 #import "AppDelegate.h"
 #import "LoginViewController.h"
+#import "TweetCell.h"
 
-@interface TimelineViewController ()
+@interface TimelineViewController () <UITableViewDelegate, UITableViewDataSource>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSMutableArray *arrayOfTweets;
 
 @end
 
@@ -20,6 +24,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    
     // Get timeline
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
         if (tweets) {
@@ -27,6 +34,10 @@
             for (NSDictionary *dictionary in tweets) {
                 NSString *text = dictionary[@"text"];
                 NSLog(@"%@", text);
+            }
+            for (Tweet *tweet in tweets) {
+                [self.arrayOfTweets addObject:tweet];
+                NSLog(@"%@", tweet.text);
             }
         } else {
             NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
@@ -39,6 +50,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 - (IBAction)onLogOut:(id)sender {
     
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -50,6 +62,17 @@
     [[APIManager shared] logout];
 }
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.arrayOfTweets.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MovieCell"];
+    
+    
+    
+    return cell;
+}
 
 /*
 #pragma mark - Navigation
