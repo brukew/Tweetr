@@ -30,6 +30,8 @@
         self.favorited = [dictionary[@"favorited"] boolValue];
         self.retweetCount = [dictionary[@"retweet_count"] intValue];
         self.retweeted = [dictionary[@"retweeted"] boolValue];
+        self.replyCount = [dictionary[@"reply_count"] intValue];
+        self.replied = [dictionary[@"replied"] boolValue];
         
         // TODO: initialize user
         

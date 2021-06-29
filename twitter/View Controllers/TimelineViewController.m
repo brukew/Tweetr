@@ -11,11 +11,12 @@
 #import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "TweetCell.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface TimelineViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSMutableArray *arrayOfTweets;
+@property (strong, nonatomic) NSArray *arrayOfTweets;
 
 @end
 
@@ -32,6 +33,8 @@
         if (tweets) {
             NSLog(@"😎😎😎 Successfully loaded home timeline");
             self.arrayOfTweets = tweets;
+            [self.tableView reloadData];
+            NSLog(@"%@", self.arrayOfTweets);
         } else {
             NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
@@ -66,8 +69,24 @@
     NSString *URLString = tweetObj.user.profilePicture;
     NSURL *url = [NSURL URLWithString:URLString];
     NSData *urlData = [NSData dataWithContentsOfURL:url];
+    cell.profPicLabel.image = nil;
+    cell.profPicLabel.layer.borderWidth = 3.0f;
+
+    cell.profPicLabel.layer.borderColor = [UIColor whiteColor].CGColor;
+    
+    cell.profPicLabel.layer.cornerRadius = cell.profPicLabel.frame.size.width / 2;
+    cell.profPicLabel.clipsToBounds = YES;
+    [cell.profPicLabel setImageWithURL:url];
+    
     
     cell.nameLabel.text = tweetObj.user.name;
+    cell.userLabel.text = [NSString stringWithFormat:@"@%@", tweetObj.user.screenName];
+    cell.bodyLabel.text = tweetObj.text;
+    cell.dateLabel.text = tweetObj.createdAtString;
+    cell.favLabel.text = [NSString stringWithFormat:@"%i", tweetObj.favoriteCount];
+    cell.rtLabel.text = [NSString stringWithFormat:@"%i", tweetObj.retweetCount];
+    cell.replyLabel.text = [NSString stringWithFormat:@"%i", tweetObj.replyCount];
+    
 
     
     
