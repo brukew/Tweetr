@@ -36,8 +36,10 @@
     
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     
+    self.arrayOfTweets = [NSMutableArray array];
+    
     // Get timeline
-    [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
+    [[APIManager shared] getHomeTimelineWithCompletion:^(NSMutableArray *tweets, NSError *error) {
         if (tweets) {
             NSLog(@"😎😎😎 Successfully loaded home timeline");
             self.arrayOfTweets = tweets;
@@ -50,7 +52,7 @@
 
 - (void)beginRefresh:(UIRefreshControl *)refreshControl {
 
-    [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
+    [[APIManager shared] getHomeTimelineWithCompletion:^(NSMutableArray *tweets, NSError *error) {
         if (tweets) {
             NSLog(@"😎😎😎 Successfully loaded home timeline");
             self.arrayOfTweets = tweets;
@@ -74,6 +76,10 @@
     [self.tableView reloadData];
 }
 
+
+
+
+
 - (IBAction)onLogOut:(id)sender {
     
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -90,9 +96,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
+    TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell" forIndexPath:indexPath];
     Tweet *tweetObj = self.arrayOfTweets[indexPath.row];
     
+    cell.tweet = tweetObj;
     NSString *URLString = tweetObj.user.profilePicture;
     NSURL *url = [NSURL URLWithString:URLString];
     //NSData *urlData = [NSData dataWithContentsOfURL:url];
