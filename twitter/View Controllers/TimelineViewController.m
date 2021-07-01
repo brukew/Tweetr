@@ -13,6 +13,7 @@
 #import "TweetCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "ComposeViewController.h"
+#import "DateTools.h"
 
 @interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -116,7 +117,7 @@
     cell.nameLabel.text = tweetObj.user.name;
     cell.userLabel.text = [NSString stringWithFormat:@"@%@", tweetObj.user.screenName];
     cell.bodyLabel.text = tweetObj.text;
-    cell.dateLabel.text = tweetObj.createdAtString;
+    cell.dateLabel.text = [NSString stringWithFormat:@"·%@", tweetObj.timeSince];
     cell.favLabel.text = [NSString stringWithFormat:@"%i", tweetObj.favoriteCount];
     cell.rtLabel.text = [NSString stringWithFormat:@"%i", tweetObj.retweetCount];
     cell.replyLabel.text = [NSString stringWithFormat:@"%i", tweetObj.replyCount];
