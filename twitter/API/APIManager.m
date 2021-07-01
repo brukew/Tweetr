@@ -127,4 +127,16 @@ static NSString * const baseURLString = @"https://api.twitter.com";
     }];
 }
 
+- (void) getUserInfo:(void(^)(NSDictionary *userInfo, NSError *error))completion{
+    NSString *urlString = @"1.1/account/verify_credentials.json";
+    [self GET:urlString
+       parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable userDictionary) {
+           // Success
+           completion(userDictionary, nil);
+       } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+           // There was a problem
+           completion(nil, error);
+    }];
+    
+}
 @end

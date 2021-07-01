@@ -11,12 +11,16 @@
 #import "Tweet.h"
 #import "User.h"
 #import "TimelineViewController.h"
+#import "User.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface ComposeViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *tweetButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
+@property (weak, nonatomic) IBOutlet UIImageView *pfpView;
+@property (weak, nonatomic) NSDictionary *userInformation;
 
 @end
 
@@ -24,8 +28,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [_textView becomeFirstResponder];
-    // Do any additional setup after loading the view.
+    [self.textView becomeFirstResponder];
+    self.pfpView.layer.cornerRadius = self.pfpView.frame.size.width / 2;
+    self.pfpView.clipsToBounds = YES;
+    
+    [[APIManager shared] getUserInfo: ^(NSDictionary *userInfo, NSError *error) {
+        if(error){
+                NSLog(@"Error getting info: %@", error.localizedDescription);
+        }
+        else{
+            
+            self.userInformation = userInfo;
+            NSString *URLString = self.userInformation[@"profile_image_url"];
+            NSURL *url = [NSURL URLWithString:URLString];
+            [self.pfpView setImageWithURL:url];
+            NSLog(@"Info secire Success!");
+        }
+    }];
+    
+    
 }
 
 - (IBAction)closeView:(id)sender {

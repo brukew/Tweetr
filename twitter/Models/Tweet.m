@@ -29,7 +29,7 @@
         self.text = dictionary[@"full_text"];
         self.favoriteCount = [dictionary[@"favorite_count"] intValue];
         self.favorited = [dictionary[@"favorited"] boolValue];
-        self.retweetCount = [dictionary[@"retweet_count"] intValue];
+        self.retweetCount = [dictionary[@"referenced_tweet"] intValue];
         self.retweeted = [dictionary[@"retweeted"] boolValue];
         self.replyCount = [dictionary[@"reply_count"] intValue];
         self.replied = [dictionary[@"replied"] boolValue];

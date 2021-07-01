@@ -26,4 +26,6 @@
 
 - (void)unretweet:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion;
 
+- (void) getUserInfo:(void(^)(NSDictionary *userInfo, NSError *error))completion;
+
 @end

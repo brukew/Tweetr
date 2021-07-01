@@ -1,36 +1,51 @@
 //
-//  TweetCell.m
+//  DetailsViewController.m
 //  twitter
 //
-//  Created by Bruke Wossenseged on 6/28/21.
+//  Created by Bruke Wossenseged on 7/1/21.
 //  Copyright © 2021 Emerson Malca. All rights reserved.
 //
 
-#import "TweetCell.h"
+#import "DetailsViewController.h"
+#import "TimelineViewController.h"
 #import "APIManager.h"
+#import "AppDelegate.h"
+#import "LoginViewController.h"
+#import "TweetCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "ComposeViewController.h"
+#import "DateTools.h"
 
-@implementation TweetCell
+@interface DetailsViewController ()
+@property (weak, nonatomic) IBOutlet UIImageView *profPicLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *userLabel;
+@property (weak, nonatomic) IBOutlet UILabel *bodyLabel;
+@property (weak, nonatomic) IBOutlet UILabel *replyLabel;
+@property (weak, nonatomic) IBOutlet UILabel *rtLabel;
+@property (weak, nonatomic) IBOutlet UILabel *favLabel;
+@property (weak, nonatomic) IBOutlet UIButton *favButton;
+@property (weak, nonatomic) IBOutlet UIButton *rtButton;
+@property (weak, nonatomic) IBOutlet UIView *tweetView;
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
+@end
+
+@implementation DetailsViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self fillView];
+    // Do any additional setup after loading the view.
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+- (void)fillView{
+    self.tweetView.layer.borderWidth = 1.0f;
 
-    // Configure the view for the selected state
-}
-
-- (void) loadData{
+    self.tweetView.layer.borderColor = [UIColor grayColor].CGColor;
     NSString *URLString = self.tweet.user.profilePicture;
     NSURL *url = [NSURL URLWithString:URLString];
     //NSData *urlData = [NSData dataWithContentsOfURL:url];
     self.profPicLabel.image = nil;
-    self.profPicLabel.layer.borderWidth = 1.0f;
-
-    self.profPicLabel.layer.borderColor = [UIColor grayColor].CGColor;
     
     self.profPicLabel.layer.cornerRadius = self.profPicLabel.frame.size.width / 2;
     self.profPicLabel.clipsToBounds = YES;
@@ -40,7 +55,7 @@
     self.nameLabel.text = self.tweet.user.name;
     self.userLabel.text = [NSString stringWithFormat:@"@%@", self.tweet.user.screenName];
     self.bodyLabel.text = self.tweet.text;
-    self.dateLabel.text = [NSString stringWithFormat:@"·%@", self.tweet.timeSince];
+    //cell.dateLabel.text = [NSString stringWithFormat:@"·%@", tweetObj.timeSince];
     self.favLabel.text = [NSString stringWithFormat:@"%i", self.tweet.favoriteCount];
     self.rtLabel.text = [NSString stringWithFormat:@"%i", self.tweet.retweetCount];
     self.replyLabel.text = [NSString stringWithFormat:@"%i", self.tweet.replyCount];
@@ -59,7 +74,8 @@
     else{
         [self.rtButton setImage:[UIImage imageNamed:@"retweet-icon.png"] forState:UIControlStateNormal];
     }
-}
+    
+    }
 
 - (void)refreshData{
     self.favLabel.text = [NSString stringWithFormat:@"%i", self.tweet.favoriteCount];
@@ -68,7 +84,37 @@
      
 }
 
-- (IBAction)didTapFavorite:(UIButton *)sender {
+- (IBAction)retweet:(id)sender {
+    if (!(self.tweet.retweeted)){
+        self.tweet.retweeted = YES;
+        self.tweet.retweetCount += 1;
+        [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
+             if(error){
+                  NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
+             }
+             else{
+                 NSLog(@"Successfully retweeted the following Tweet: %@", tweet.text);
+             }
+         }];
+        [self.rtButton setImage:[UIImage imageNamed:@"retweet-icon-green.png"] forState:UIControlStateNormal];
+    }
+    else {
+        self.tweet.retweeted = NO;
+        self.tweet.retweetCount -= 1;
+        [[APIManager shared] unretweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
+             if(error){
+                  NSLog(@"Error unretweeting tweet: %@", error.localizedDescription);
+             }
+             else{
+                 NSLog(@"Successfully unretweeted the following Tweet: %@", tweet.text);
+             }
+         }];
+        [self.rtButton setImage:[UIImage imageNamed:@"retweet-icon.png"] forState:UIControlStateNormal];
+    }
+    [self refreshData];
+}
+
+- (IBAction)favorite:(id)sender {
     if (!(self.tweet.favorited)){
         self.tweet.favorited = YES;
         self.tweet.favoriteCount += 1;
@@ -102,34 +148,14 @@
     [self refreshData];
 }
 
-- (IBAction)didTapRetweet:(id)sender {
-    if (!(self.tweet.retweeted)){
-        self.tweet.retweeted = YES;
-        self.tweet.retweetCount += 1;
-        [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully retweeted the following Tweet: %@", tweet.text);
-             }
-         }];
-        [self.rtButton setImage:[UIImage imageNamed:@"retweet-icon-green.png"] forState:UIControlStateNormal];
-    }
-    else {
-        self.tweet.retweeted = NO;
-        self.tweet.retweetCount -= 1;
-        [[APIManager shared] unretweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error unretweeting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully unretweeted the following Tweet: %@", tweet.text);
-             }
-         }];
-        [self.rtButton setImage:[UIImage imageNamed:@"retweet-icon.png"] forState:UIControlStateNormal];
-    }
-    [self refreshData];
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
 }
+*/
 
 @end
