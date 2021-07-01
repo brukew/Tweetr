@@ -11,11 +11,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
 @interface TweetCell : UITableViewCell
 
 @property (nonatomic, strong) Tweet* tweet;
 
-@property (weak, nonatomic) IBOutlet UIImageView *profPicLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *userLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
@@ -25,9 +25,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *favLabel;
 @property (weak, nonatomic) IBOutlet UIButton *rtButton;
 @property (weak, nonatomic) IBOutlet UIButton *favButton;
+@property (weak, nonatomic) IBOutlet UIImageView *profilePicLabel;
 
 - (void)loadData;
 
+- (void) didTapUserProfile:(UITapGestureRecognizer *)sender;
+
 @end
+
 
 NS_ASSUME_NONNULL_END

@@ -15,6 +15,8 @@
 #import "ComposeViewController.h"
 #import "DateTools.h"
 #import "DetailsViewController.h"
+#import "ProfileViewController.h"
+
 
 @interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -99,9 +101,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell" forIndexPath:indexPath];
+    
     Tweet *tweetObj = self.arrayOfTweets[indexPath.row];
     
     cell.tweet = tweetObj;
+    //cell.delegate = self;
     
     [cell loadData];
     
@@ -109,24 +113,32 @@
     return cell;
 }
 
+- (void)tweetCell:(TweetCell *)tweetCell didTap:(User *)user{
+    [self performSegueWithIdentifier:@"profileSegue" sender:user];
+}
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
     if ([segue.identifier isEqual:@"composeTweet"]){
         UINavigationController *navigationController = [segue destinationViewController];
         ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
         composeController.delegate = self;
     }
-    else{
+    if ([segue.identifier isEqual:@"details"]){
         UITableViewCell *tappedCell = sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
         Tweet *tweetObj = self.arrayOfTweets[indexPath.row];
         DetailsViewController *detailsController = [segue destinationViewController];
         detailsController.tweet = tweetObj;
     }
+    if ([segue.identifier isEqual:@"profileSegue"]){
+        //segue.destination
+        ProfileViewController *profileController = [segue destinationViewController];
+
+    }
+    
 }
 
 

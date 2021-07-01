@@ -9,11 +9,15 @@
 #import "TweetCell.h"
 #import "APIManager.h"
 #import "UIImageView+AFNetworking.h"
+#import "UIButton+AFNetworking.h"
 
 @implementation TweetCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    UITapGestureRecognizer *profileTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapUserProfile:)];
+    [self.profilePicLabel addGestureRecognizer:profileTapGestureRecognizer];
+    [self.profilePicLabel setUserInteractionEnabled:YES];
     // Initialization code
 }
 
@@ -27,14 +31,15 @@
     NSString *URLString = self.tweet.user.profilePicture;
     NSURL *url = [NSURL URLWithString:URLString];
     //NSData *urlData = [NSData dataWithContentsOfURL:url];
-    self.profPicLabel.image = nil;
-    self.profPicLabel.layer.borderWidth = 1.0f;
+    //self.pfpButton.image = nil;
+    self.profilePicLabel.layer.borderWidth = 1.0f;
 
-    self.profPicLabel.layer.borderColor = [UIColor grayColor].CGColor;
+    self.profilePicLabel.layer.borderColor = [UIColor grayColor].CGColor;
     
-    self.profPicLabel.layer.cornerRadius = self.profPicLabel.frame.size.width / 2;
-    self.profPicLabel.clipsToBounds = YES;
-    [self.profPicLabel setImageWithURL:url];
+    self.profilePicLabel.layer.cornerRadius = self.profilePicLabel.frame.size.width / 2;
+    self.profilePicLabel.clipsToBounds = YES;
+    [self.profilePicLabel setImageWithURL:url];
+    
     
     
     self.nameLabel.text = self.tweet.user.name;
@@ -130,6 +135,11 @@
         [self.rtButton setImage:[UIImage imageNamed:@"retweet-icon.png"] forState:UIControlStateNormal];
     }
     [self refreshData];
+}
+
+- (void) didTapUserProfile:(UITapGestureRecognizer *)sender{
+    //[self.delegate tweetCell:self didTap:self.tweet.user];
+    //TODO: Call method delegate
 }
 
 @end
