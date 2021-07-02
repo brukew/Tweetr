@@ -437,7 +437,6 @@
         <!--Profile-->
         <scene sceneID="Ift-vF-5Na">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="pMs-Yb-a5B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="i2P-L6-pD5" customClass="ProfileViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cre-MM-seT">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
@@ -599,6 +598,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="kOY-pK-rEe"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pMs-Yb-a5B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3433.8461538461538" y="186.96682464454975"/>
         </scene>
@@ -610,7 +610,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="ddd" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="WEC-N8-yxh">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Whats Happening?" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="WEC-N8-yxh">
                                 <rect key="frame" x="44" y="0.0" width="331" height="237"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>

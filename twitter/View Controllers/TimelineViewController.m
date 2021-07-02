@@ -18,7 +18,7 @@
 #import "ProfileViewController.h"
 
 
-@interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface TimelineViewController () <DetailsViewControllerDelegate, ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *arrayOfTweets;
@@ -77,6 +77,9 @@
     [self.tableView reloadData];
 }
 
+- (void)didLeave{
+    [self.tableView reloadData];
+}
 
 
 
@@ -128,13 +131,9 @@
         Tweet *tweetObj = self.arrayOfTweets[indexPath.row];
         DetailsViewController *detailsController = [segue destinationViewController];
         detailsController.tweet = tweetObj;
-    }
-    if ([segue.identifier isEqual:@"profileSegue"]){
-        ProfileViewController *profileController = [segue destinationViewController];
-
-    }
+        detailsController.delegate = self;
     
 }
 
-
+}
 @end
