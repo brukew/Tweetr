@@ -42,7 +42,6 @@
             NSString *URLString = self.userInformation[@"profile_image_url"];
             NSURL *url = [NSURL URLWithString:URLString];
             [self.pfpView setImageWithURL:url];
-            NSLog(@"Info secire Success!");
         }
     }];
     
@@ -57,26 +56,12 @@
     NSString *text = self.textView.text;
     //Tweet text
     [[APIManager shared] postStatusWithText:text completion: ^(Tweet *tweet, NSError *error) {
-        if(error){
-                NSLog(@"Error composing Tweet: %@", error.localizedDescription);
-        }
-        else{
+        if (!(error)){
             [self.delegate didTweet:tweet];
             [self dismissViewControllerAnimated:true completion:nil];
-            NSLog(@"Compose Tweet Success!");
         }
     }];
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

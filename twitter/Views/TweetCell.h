@@ -29,8 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)loadData;
 
-- (void) didTapUserProfile:(UITapGestureRecognizer *)sender;
-
 @end
 
 

@@ -112,12 +112,6 @@
         self.tweet.retweeted = YES;
         self.tweet.retweetCount += 1;
         [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully retweeted the following Tweet: %@", tweet.text);
-             }
          }];
         [self.rtButton setImage:[UIImage imageNamed:@"retweet-icon-green.png"] forState:UIControlStateNormal];
     }
@@ -125,21 +119,11 @@
         self.tweet.retweeted = NO;
         self.tweet.retweetCount -= 1;
         [[APIManager shared] unretweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error unretweeting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully unretweeted the following Tweet: %@", tweet.text);
-             }
          }];
         [self.rtButton setImage:[UIImage imageNamed:@"retweet-icon.png"] forState:UIControlStateNormal];
     }
     [self refreshData];
 }
 
-- (void) didTapUserProfile:(UITapGestureRecognizer *)sender{
-    //[self.delegate tweetCell:self didTap:self.tweet.user];
-    //TODO: Call method delegate
-}
 
 @end

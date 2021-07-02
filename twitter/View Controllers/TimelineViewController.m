@@ -30,7 +30,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Initialize a UIRefreshControl
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:refreshControl atIndex:0];
@@ -42,7 +41,6 @@
     
     self.arrayOfTweets = [NSMutableArray array];
     
-    // Get timeline
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSMutableArray *tweets, NSError *error) {
         if (tweets) {
             NSLog(@"😎😎😎 Successfully loaded home timeline");
@@ -72,7 +70,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)didTweet:(Tweet *)tweet{
@@ -105,7 +102,6 @@
     Tweet *tweetObj = self.arrayOfTweets[indexPath.row];
     
     cell.tweet = tweetObj;
-    //cell.delegate = self;
     
     [cell loadData];
     
@@ -134,7 +130,6 @@
         detailsController.tweet = tweetObj;
     }
     if ([segue.identifier isEqual:@"profileSegue"]){
-        //segue.destination
         ProfileViewController *profileController = [segue destinationViewController];
 
     }

@@ -240,9 +240,12 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Sign Out"/>
+                                <connections>
+                                    <action selector="onLogOut:" destination="JKt-uj-1M8" eventType="touchUpInside" id="OTe-24-neD"/>
+                                </connections>
                             </button>
                             <connections>
-                                <action selector="onLogOut:" destination="JKt-uj-1M8" id="GXI-pD-ral"/>
+                                <action selector="onLogOut:" destination="JKt-uj-1M8" id="3zl-wX-Afd"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="edit-icon" id="LfF-jN-omo">

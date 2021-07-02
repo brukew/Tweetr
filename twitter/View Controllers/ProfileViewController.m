@@ -16,11 +16,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   /* self.tweetView.layer.borderWidth = 1.0f;
-
-    self.tweetView.layer.borderColor = [UIColor grayColor].CGColor;
-    */
-    // Do any additional setup after loading the view.
 }
 
 /*

@@ -89,12 +89,6 @@
         self.tweet.retweeted = YES;
         self.tweet.retweetCount += 1;
         [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully retweeted the following Tweet: %@", tweet.text);
-             }
          }];
         [self.rtButton setImage:[UIImage imageNamed:@"retweet-icon-green.png"] forState:UIControlStateNormal];
     }
@@ -102,12 +96,6 @@
         self.tweet.retweeted = NO;
         self.tweet.retweetCount -= 1;
         [[APIManager shared] unretweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error unretweeting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully unretweeted the following Tweet: %@", tweet.text);
-             }
          }];
         [self.rtButton setImage:[UIImage imageNamed:@"retweet-icon.png"] forState:UIControlStateNormal];
     }
@@ -119,12 +107,6 @@
         self.tweet.favorited = YES;
         self.tweet.favoriteCount += 1;
         [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
-             }
          }];
         CGRect favFrame = self.favButton.frame;
         favFrame.origin.y += 2;
@@ -148,14 +130,6 @@
     [self refreshData];
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
