@@ -2,7 +2,7 @@
 
 **Tweeter** is a basic twitter app to read and compose tweets the [Twitter API](https://apps.twitter.com/).
 
-Time spent: **X** hours spent in total
+Time spent: **13** hours spent in total
 
 ## User Stories
 
@@ -53,13 +53,14 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+https://imgur.com/a/zSr3l3F
 
 GIF created with [Kap](https://getkap.co/).
 
+
 ## Notes
 
-Describe any challenges encountered while building the app.
+Autolayout was a big pain but learned the basics.
 
 ## Credits
 
