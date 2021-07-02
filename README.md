@@ -53,7 +53,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<blockquote class="imgur-embed-pub" lang="en" data-id="a/VTVNTuR"  ><a href="//imgur.com/a/VTVNTuR">Twitter Walkthrough</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+<blockquote class="imgur-embed-pub" lang="en" data-id="a/VTVNTuR"  ><a href="//imgur.com/a/VTVNTuR">Twitter Walkthrough</a></blockquote>
 
 
 GIF created with [Kap](https://getkap.co/).
