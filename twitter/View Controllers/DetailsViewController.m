@@ -44,9 +44,7 @@
     self.tweetView.layer.borderColor = [UIColor grayColor].CGColor;
     NSString *URLString = self.tweet.user.profilePicture;
     NSURL *url = [NSURL URLWithString:URLString];
-    //NSData *urlData = [NSData dataWithContentsOfURL:url];
     self.profPicLabel.image = nil;
-    
     self.profPicLabel.layer.cornerRadius = self.profPicLabel.frame.size.width / 2;
     self.profPicLabel.clipsToBounds = YES;
     [self.profPicLabel setImageWithURL:url];
@@ -55,7 +53,6 @@
     self.nameLabel.text = self.tweet.user.name;
     self.userLabel.text = [NSString stringWithFormat:@"@%@", self.tweet.user.screenName];
     self.bodyLabel.text = self.tweet.text;
-    //cell.dateLabel.text = [NSString stringWithFormat:@"·%@", tweetObj.timeSince];
     self.favLabel.text = [NSString stringWithFormat:@"%i", self.tweet.favoriteCount];
     self.rtLabel.text = [NSString stringWithFormat:@"%i", self.tweet.retweetCount];
     self.replyLabel.text = [NSString stringWithFormat:@"%i", self.tweet.replyCount];
@@ -116,12 +113,6 @@
         self.tweet.favorited = NO;
         self.tweet.favoriteCount -= 1;
         [[APIManager shared] unfavorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error unfavoriting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully unfavorited the following Tweet: %@", tweet.text);
-             }
          }];
         CGRect favFrame = self.favButton.frame;
         favFrame.origin.y -= 2;

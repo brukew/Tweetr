@@ -27,8 +27,6 @@
     [[APIManager shared] loginWithCompletion:^(BOOL success, NSError *error) {
         if (success) {
             [self performSegueWithIdentifier:@"loginSegue" sender:nil];
-        } else {
-            NSLog(@"%@", error.localizedDescription);
         }
     }];
 }

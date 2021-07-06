@@ -43,11 +43,8 @@
     
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSMutableArray *tweets, NSError *error) {
         if (tweets) {
-            NSLog(@"😎😎😎 Successfully loaded home timeline");
             self.arrayOfTweets = tweets;
             [self.tableView reloadData];
-        } else {
-            NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
     }];
 }
@@ -56,12 +53,9 @@
 
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSMutableArray *tweets, NSError *error) {
         if (tweets) {
-            NSLog(@"😎😎😎 Successfully loaded home timeline");
             self.arrayOfTweets = tweets;
             [self.tableView reloadData];
             [refreshControl endRefreshing];
-        } else {
-            NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
     }];
     

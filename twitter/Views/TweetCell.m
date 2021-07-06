@@ -15,20 +15,17 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
 }
 
 - (void) loadData{
     NSString *URLString = self.tweet.user.profilePicture;
     NSURL *url = [NSURL URLWithString:URLString];
-    //NSData *urlData = [NSData dataWithContentsOfURL:url];
-    //self.pfpButton.image = nil;
+
     self.profilePicLabel.layer.borderWidth = 1.0f;
 
     self.profilePicLabel.layer.borderColor = [UIColor grayColor].CGColor;
@@ -75,12 +72,6 @@
         self.tweet.favorited = YES;
         self.tweet.favoriteCount += 1;
         [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
-             }
          }];
         CGRect favFrame = self.favButton.frame;
         favFrame.origin.y += 2;
@@ -90,12 +81,6 @@
         self.tweet.favorited = NO;
         self.tweet.favoriteCount -= 1;
         [[APIManager shared] unfavorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error unfavoriting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully unfavorited the following Tweet: %@", tweet.text);
-             }
          }];
         CGRect favFrame = self.favButton.frame;
         favFrame.origin.y -= 2;

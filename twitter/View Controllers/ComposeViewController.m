@@ -33,11 +33,7 @@
     self.pfpView.clipsToBounds = YES;
     
     [[APIManager shared] getUserInfo: ^(NSDictionary *userInfo, NSError *error) {
-        if(error){
-                NSLog(@"Error getting info: %@", error.localizedDescription);
-        }
-        else{
-            
+        if (!(error)){
             self.userInformation = userInfo;
             NSString *URLString = self.userInformation[@"profile_image_url"];
             NSURL *url = [NSURL URLWithString:URLString];
@@ -54,7 +50,6 @@
 
 - (IBAction)updateStatus:(id)sender {
     NSString *text = self.textView.text;
-    //Tweet text
     [[APIManager shared] postStatusWithText:text completion: ^(Tweet *tweet, NSError *error) {
         if (!(error)){
             [self.delegate didTweet:tweet];
